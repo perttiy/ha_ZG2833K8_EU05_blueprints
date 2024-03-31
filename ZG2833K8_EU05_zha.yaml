@@ -1,0 +1,167 @@
+blueprint:
+  name: Sunricher Zigbee Dimmer Button Actions (1-4)
+  description: Handle "on" and "off" presses, including long presses, for buttons 1 through 4.
+  domain: automation
+  input:
+    sunricher_dimmer:
+      name: Sunricher Dimmer
+      description: Select the Sunricher dimmer.
+      selector:
+        device:
+          integration: zha
+          manufacturer: Sunricher
+
+    # Inputs for button actions
+    # Repeat for each button (1-4) and each action (on, off, long press on, long press off)
+    button_1_on_action:
+      name: Button 1 On Action (Single Press)
+      selector:
+        action: {}
+    button_1_off_action:
+      name: Button 1 Off Action (Single Press)
+      selector:
+        action: {}
+    button_1_on_long_press_action:
+      name: Button 1 On Action (Long Press)
+      selector:
+        action: {}
+    button_1_off_long_press_action:
+      name: Button 1 Off Action (Long Press)
+      selector:
+        action: {}
+
+    # Button 2
+    button_2_on_action:
+      name: Button 2 On Action (Single Press)
+      selector:
+        action: {}
+    button_2_off_action:
+      name: Button 2 Off Action (Single Press)
+      selector:
+        action: {}
+    button_2_on_long_press_action:
+      name: Button 2 On Action (Long Press)
+      selector:
+        action: {}
+    button_2_off_long_press_action:
+      name: Button 2 Off Action (Long Press)
+      selector:
+        action: {}
+
+    # Button 3
+    button_3_on_action:
+      name: Button 3 On Action (Single Press)
+      selector:
+        action: {}
+    button_3_off_action:
+      name: Button 3 Off Action (Single Press)
+      selector:
+        action: {}
+    button_3_on_long_press_action:
+      name: Button 3 On Action (Long Press)
+      selector:
+        action: {}
+    button_3_off_long_press_action:
+      name: Button 3 Off Action (Long Press)
+      selector:
+        action: {}
+
+    # Button 4
+    button_4_on_action:
+      name: Button 4 On Action (Single Press)
+      selector:
+        action: {}
+    button_4_off_action:
+      name: Button 4 Off Action (Single Press)
+      selector:
+        action: {}
+    button_4_on_long_press_action:
+      name: Button 4 On Action (Long Press)
+      selector:
+        action: {}
+    button_4_off_long_press_action:
+      name: Button 4 Off Action (Long Press)
+      selector:
+        action: {}
+
+trigger:
+  platform: event
+  event_type: zha_event
+  event_data:
+    device_ieee: !input 'sunricher_dimmer'
+
+action:
+  - choose:
+      # Button 1 Actions
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.endpoint_id == 1 and trigger.event.data.cluster_id == 6 and trigger.event.data.command == 'on' }}"
+        sequence: !input 'button_1_on_action'
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.endpoint_id == 1 and trigger.event.data.cluster_id == 6 and trigger.event.data.command == 'off' }}"
+        sequence: !input 'button_1_off_action'
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.endpoint_id == 1 and trigger.event.data.cluster_id == 8 and trigger.event.data.command == 'move_with_on_off' and trigger.event.data.args[0] == 0 }}"
+        sequence: !input 'button_1_on_long_press_action'
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.endpoint_id == 1 and trigger.event.data.cluster_id == 8 and trigger.event.data.command == 'move_with_on_off' and trigger.event.data.args[0] == 1 }}"
+        sequence: !input 'button_1_off_long_press_action'
+
+      # Button 2 Actions
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.endpoint_id == 2 and trigger.event.data.cluster_id == 6 and trigger.event.data.command == 'on' }}"
+        sequence: !input 'button_2_on_action'
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.endpoint_id == 2 and trigger.event.data.cluster_id == 6 and trigger.event.data.command == 'off' }}"
+        sequence: !input 'button_2_off_action'
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.endpoint_id == 2 and trigger.event.data.cluster_id == 8 and trigger.event.data.command == 'move_with_on_off' and trigger.event.data.args[0] == 0 }}"
+        sequence: !input 'button_2_on_long_press_action'
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.endpoint_id == 2 and trigger.event.data.cluster_id == 8 and trigger.event.data.command == 'move_with_on_off' and trigger.event.data.args[0] == 1 }}"
+        sequence: !input 'button_2_off_long_press_action'
+
+      # Button 3 Actions
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.endpoint_id == 3 and trigger.event.data.cluster_id == 6 and trigger.event.data.command == 'on' }}"
+        sequence: !input 'button_3_on_action'
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.endpoint_id == 3 and trigger.event.data.cluster_id == 6 and trigger.event.data.command == 'off' }}"
+        sequence: !input 'button_3_off_action'
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.endpoint_id == 3 and trigger.event.data.cluster_id == 8 and trigger.event.data.command == 'move_with_on_off' and trigger.event.data.args[0] == 0 }}"
+        sequence: !input 'button_3_on_long_press_action'
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.endpoint_id == 3 and trigger.event.data.cluster_id == 8 and trigger.event.data.command == 'move_with_on_off' and trigger.event.data.args[0] == 1 }}"
+        sequence: !input 'button_3_off_long_press_action'
+
+      # Button 4 Actions
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.endpoint_id == 4 and trigger.event.data.cluster_id == 6 and trigger.event.data.command == 'on' }}"
+        sequence: !input 'button_4_on_action'
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.endpoint_id == 4 and trigger.event.data.cluster_id == 6 and trigger.event.data.command == 'off' }}"
+        sequence: !input 'button_4_off_action'
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.endpoint_id == 4 and trigger.event.data.cluster_id == 8 and trigger.event.data.command == 'move_with_on_off' and trigger.event.data.args[0] == 0 }}"
+        sequence: !input 'button_4_on_long_press_action'
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.endpoint_id == 4 and trigger.event.data.cluster_id == 8 and trigger.event.data.command == 'move_with_on_off' and trigger.event.data.args[0] == 1 }}"
+        sequence: !input 'button_4_off_long_press_action'
+    default: []
+
