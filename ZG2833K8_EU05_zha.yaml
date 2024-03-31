@@ -30,6 +30,7 @@ blueprint:
         action: {}
     button_1_off_long_press_action:
       name: Button 1 Off Action (Long Press)
+      default: []
       selector:
         action: {}
 
@@ -73,6 +74,7 @@ blueprint:
         action: {}
     button_3_off_long_press_action:
       name: Button 3 Off Action (Long Press)
+      default: []
       selector:
         action: {}
 
